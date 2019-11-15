@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../assets/css/App';
-import Navbar from '../Layout/Navbar'
+import Home from '../Home'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  return (
-    <Navbar />
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  render() {
+    return <Home />
+  }
 }
 
 export default App;
