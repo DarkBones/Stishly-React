@@ -21,7 +21,7 @@ class LoginForm extends Component {
 		} = this.state;
 
 		event.preventDefault();
-		axios.post("http://localhost:3001/users/sign_in",
+		axios.post("http://localhost:3001/login",
 		{
 			user: {
 				email: email,
@@ -30,7 +30,7 @@ class LoginForm extends Component {
 		},
 		{ withCredentials: true })
 		.then(response => {
-			console.log("Success");
+			console.log("Success: " + JSON.stringify(response));
 		}).catch(error => {
 			console.log("Failure: " + JSON.stringify(error));
 		})
@@ -46,6 +46,7 @@ class LoginForm extends Component {
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
+					<label>Email</label>
 					<input
 						className="form-control"
 						type="email"
@@ -56,6 +57,7 @@ class LoginForm extends Component {
 						required
 					/>
 
+					<label>Password</label>
 					<input
 						className="form-control"
 						type="password"
