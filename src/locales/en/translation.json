@@ -15,10 +15,6 @@
       }
     },
     "signupform": {
-      "email": {
-        "label": "Email",
-        "placeholder": "Your email address"
-      },
       "firstname": {
         "label": "First Name",
         "placeholder": "Your first name"
@@ -26,6 +22,10 @@
       "lastname": {
         "label": "Last Name",
         "placeholder": "Your last name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Your email address"
       },
       "password": {
         "label": "Password",

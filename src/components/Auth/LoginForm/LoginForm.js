@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { translate } from 'react-i18next';
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -43,41 +44,55 @@ class LoginForm extends Component {
 	}
 
 	render() {
+		const { t, i18n } = this.props;
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
-					<label>Email</label>
-					<input
-						className="form-control"
-						type="email"
-						name="email"
-						placeholder="Email"
-						value={this.state.email}
-						onChange={this.handleChange}
-						required
-					/>
+					<div className="row">
+						<div className="col-12 py-2">
+							<label>{t('auth.loginform.email.label')}</label>
+							<input
+								className="form-control"
+								type="email"
+								name="email"
+								placeholder={t('auth.loginform.email.placeholder')}
+								value={this.state.email}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+					</div>
 
-					<label>Password</label>
-					<input
-						className="form-control"
-						type="password"
-						name="password"
-						placeholder="Password"
-						value={this.state.password}
-						onChange={this.handleChange}
-						required
-					/>
+					<div className="row">
+						<div className="col-12 py-2">
+							<label>{t('auth.loginform.password.label')}</label>
+							<input
+								className="form-control"
+								type="password"
+								name="password"
+								placeholder={t('auth.loginform.password.placeholder')}
+								value={this.state.password}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+					</div>
 
-					<button
-						type="submit"
-						className="btn btn-primary"
-					>
-						Log In
-					</button>
+					<div className="row">
+						<div className="col-12 py-2">
+							<button
+								type="submit"
+								className="btn btn-primary"
+							>
+								{t('auth.loginform.submit.text')}
+							</button>
+						</div>
+					</div>
+
 				</form>
 			</div>
 		);
 	}
 }
 
-export default LoginForm;
+export default translate()(LoginForm);

@@ -15,14 +15,37 @@ class SignupForm extends Component {
       last_name: "",
       email: "",
       password: "",
-      password_configuration: "",
+      password_confirmation: "",
       timezone: "",
     }
   }
 
   handleSubmit(event) {
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      password_confirmation,
+    } = this.state;
+
     event.preventDefault();
-    console.log("Form submitted");
+    axios.post("http://localhost:3001/signup",
+    {
+      user: {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+      }
+    })
+    .then(response => {
+      console.log("Success: " + JSON.stringify(response));
+    }).catch(error => {
+      console.log("Failure: " + JSON.stringify(error));
+    })
+    
   }
 
   handleChange(event) {
@@ -36,67 +59,91 @@ class SignupForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>{t('test.one')}</label>
-          <input
-            className="form-control"
-            type="text"
-            name="first_name"
-            placeholder="First name"
-            value={this.state.first_name}
-            onChange={this.handleChange}
-            required
-          />
 
-          <label>Last Name</label>
-          <input
-            className="form-control"
-            type="text"
-            name="last_name"
-            placeholder="Last name"
-            value={this.state.last_name}
-            onChange={this.handleChange}
-            required
-          />
+          <div className="row">
+            <div className="col-12 col-sm-6 py-2">
+              <label>{t('auth.signupform.firstname.label')}</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="first_name"
+                  placeholder={t('auth.signupform.firstname.placeholder')}
+                  value={this.state.first_name}
+                  onChange={this.handleChange}
+                  required
+                />
+            </div>
 
-          <label>Email</label>
-          <input
-            className="form-control"
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
+            <div className="col-12 col-sm-6 py-2">
+              <label>{t('auth.signupform.lastname.label')}</label>
+              <input
+                className="form-control"
+                type="text"
+                name="last_name"
+                placeholder={t('auth.signupform.lastname.placeholder')}
+                value={this.state.last_name}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label>Password</label>
-          <input
-            className="form-control"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
+          <div className="row">
+            <div className="col-12 py-2">
+              <label>{t('auth.signupform.email.label')}</label>
+              <input
+                className="form-control"
+                type="email"
+                name="email"
+                placeholder={t('auth.signupform.email.placeholder')}
+                value={this.state.email}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label>Password Confirmation</label>
-          <input
-            className="form-control"
-            type="password"
-            name="password_confirmation"
-            placeholder="Password confirmation"
-            value={this.state.password_confirmation}
-            onChange={this.handleChange}
-            required
-          />
+          <div className="row">
+            <div className="col-12 py-2">
+              <label>{t('auth.signupform.password.label')}</label>
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                placeholder={t('auth.signupform.password.placeholder')}
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+          </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary"
-          >
-            Sign Up
-          </button>
+          <div className="row">
+            <div className="col-12 py-2">
+              <label>{t('auth.signupform.password_confirmation.label')}</label>
+              <input
+                className="form-control"
+                type="password"
+                name="password_confirmation"
+                placeholder={t('auth.signupform.password_confirmation.placeholder')}
+                value={this.state.password_confirmation}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12 py-2">
+              <button
+                type="submit"
+                className="btn btn-primary"
+              >
+                {t('auth.signupform.submit.text')}
+              </button>
+            </div>
+          </div>
+
         </form>
       </div>
     )
