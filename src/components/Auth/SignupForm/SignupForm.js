@@ -36,7 +36,7 @@ class SignupForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>{t('auth.signupform.firstname.label')}</label>
+          <label>{t('test.one')}</label>
           <input
             className="form-control"
             type="text"

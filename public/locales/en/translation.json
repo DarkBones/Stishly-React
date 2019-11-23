@@ -32,7 +32,7 @@
         "placeholder": "Pick a strong password"
       },
       "password_confirmation": {
-        "label": Password Confirmation,
+        "label": "Password Confirmation",
         "placeholder": "Confirm your password"
       },
       "submit": {
