@@ -1,0 +1,44 @@
+{
+  "auth": {
+    "loginform": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Your email address"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Your password"
+      },
+      "submit": {
+        "text": "Log in",
+        "action": "Logging you in"
+      }
+    },
+    "signupform": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Your email address"
+      },
+      "firstname": {
+        "label": "First Name",
+        "placeholder": "Your first name"
+      },
+      "lastname": {
+        "label": "Last Name",
+        "placeholder": "Your last name"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Pick a strong password"
+      },
+      "password_confirmation": {
+        "label": Password Confirmation,
+        "placeholder": "Confirm your password"
+      },
+      "submit": {
+        "text": "Sign up",
+        "action": "Signing you up"
+      }
+    }
+  }
+}

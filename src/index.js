@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './assets/css/index';
 import App from './components/App';
 import * as serviceWorker from './helpers/serviceWorker';
+import './i18n';
 require('dotenv').config();
 
 ReactDOM.render(<App />, document.getElementById('root'));
