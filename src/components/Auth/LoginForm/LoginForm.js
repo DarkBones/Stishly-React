@@ -31,7 +31,7 @@ class LoginForm extends Component {
 		},
 		{ withCredentials: true })
 		.then(response => {
-			console.log("Success: " + JSON.stringify(response));
+			localStorage.setItem('jwt-token', response.data);
 		}).catch(error => {
 			console.log("Failure: " + JSON.stringify(error));
 		})
