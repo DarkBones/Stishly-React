@@ -7,21 +7,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Authenticated from '../Auth/Authenticated';
 import Protected from '../Auth/Protected';
 
+import history from "../../history";
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
       currentUser: null
     }
+
   }
 
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter history={history}>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={SignupForm} />
-          <Authenticated>
+          <Authenticated history={history}>
             <Route path="/protected" component={Protected} />
           </Authenticated>
         </Switch>

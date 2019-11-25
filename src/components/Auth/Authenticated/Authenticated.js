@@ -13,21 +13,23 @@ class Authenticated extends Component {
 
   componentDidMount() {
     const jwt = getJwt();
+    
     if(!jwt) {
-      this.context.history.push("/");
+      this.props.history.push("/");
     }
 
-    axios.get("http://localhost:3001/getUser/", {
+    axios.get("http://localhost:3001/api/v1/user/get_user/", {
       headers: { Authorization: `Bearer ${jwt}`}
     })
-    .then(response => response.setState(
+    .then(response => this.setState(
       {
         user: response.data
       }
     )).catch(error => {
-      localStorage.removeItem("jwt-token");
-      //this.context.history.push("/");
-    })
+      console.log(error);
+      //localStorage.removeItem("jwt-token");
+      this.props.history.push("/");
+    });
   }
 
   render() {
