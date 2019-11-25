@@ -20,7 +20,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter history={history}>
+      <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={SignupForm} />

@@ -44,7 +44,7 @@ class LoginForm extends Component {
 	}
 
 	render() {
-		const { t, i18n } = this.props;
+		const { t } = this.props;
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>

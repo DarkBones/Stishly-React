@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { translate } from 'react-i18next';
-import i18n from '../../../i18n';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -55,7 +54,7 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { t, i18n } = this.props;
+    const { t } = this.props;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

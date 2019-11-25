@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getJwt } from '../../../helpers/jwt';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class Authenticated extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Authenticated extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    console.log(typeof(this.props.children));
 
     if(this.state.user === undefined) {
       return (
@@ -42,12 +43,18 @@ class Authenticated extends Component {
         </div>
       )
     }
+
     return (
       <div>
         {this.props.children}
       </div>
     )
   }
+}
+
+Authenticated.propTypes = {
+  history: PropTypes.object,
+  children: PropTypes.object
 }
 
 export default Authenticated;
