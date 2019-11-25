@@ -16,7 +16,7 @@ class Authenticated extends Component {
     const jwt = getJwt();
     
     if(!jwt) {
-      this.props.history.push("/");
+      //this.props.history.push("/");
     }
 
     axios.get("http://localhost:3001/api/v1/user/get_user/", {
@@ -48,13 +48,13 @@ class Authenticated extends Component {
       <div>
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 
 Authenticated.propTypes = {
-  history: PropTypes.object,
-  children: PropTypes.object
+  history: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired
 }
 
 export default Authenticated;
