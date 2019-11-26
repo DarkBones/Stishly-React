@@ -1,5 +1,8 @@
 {
   "auth": {
+    "authenticated": {
+      "loading": "Loading"
+    },
     "loginform": {
       "email": {
         "label": "Email",

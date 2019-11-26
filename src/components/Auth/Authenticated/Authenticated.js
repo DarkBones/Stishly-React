@@ -3,6 +3,7 @@ import { getJwt } from '../../../helpers/jwt';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { translate } from 'react-i18next';
 
 
 class Authenticated extends Component {
@@ -19,6 +20,7 @@ class Authenticated extends Component {
     
     if(!jwt) {
       this.props.history.push("/");
+      // TODO: Display message saying you need to log in
     }
 
     axios.get("http://localhost:3001/api/v1/user/get_user/", {
@@ -39,11 +41,13 @@ class Authenticated extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     if(this.state.user === undefined) {
       return (
         <div>
-          {/* TODO: User i18next */}
-          <h1>Loading...</h1>
+          {/* TODO: Make this look better */}
+          <h1>{t('auth.authenticated.loading')} ...</h1>
         </div>
       )
     }
@@ -61,4 +65,4 @@ Authenticated.propTypes = {
   children: PropTypes.object.isRequired
 }
 
-export default withRouter(Authenticated);
+export default withRouter(translate()(Authenticated));

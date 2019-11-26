@@ -5,7 +5,7 @@ import Home from '../Home';
 import SignupForm from '../Auth/SignupForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Authenticated from '../Auth/Authenticated';
-import Protected from '../Auth/Protected';
+import Application from '../Application';
 
 import history from "../../history";
 
@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={SignupForm} />
           <Authenticated history={history}>
-            <Route path="/protected" component={Protected} />
+            <Route path="/app" component={Application} />
           </Authenticated>
         </Switch>
       </BrowserRouter>
