@@ -33,7 +33,12 @@ class LoginForm extends Component {
 		.then(response => {
 			localStorage.setItem('jwt-token', response.data);
 		}).catch(error => {
-			console.log("Failure: " + JSON.stringify(error));
+			console.log(error);
+			if(error.response.status === 401) {
+				// TODO: Display message saying credentials were incorrect or account is locked
+			} else {
+				// TODO: Display message saying there was an unexpected error
+			}
 		})
 	}
 

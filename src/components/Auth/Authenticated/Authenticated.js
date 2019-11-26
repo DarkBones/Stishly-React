@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { getJwt } from '../../../helpers/jwt';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
 
 class Authenticated extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class Authenticated extends Component {
     const jwt = getJwt();
     
     if(!jwt) {
-      //this.props.history.push("/");
+      this.props.history.push("/");
     }
 
     axios.get("http://localhost:3001/api/v1/user/get_user/", {
@@ -27,18 +29,20 @@ class Authenticated extends Component {
         user: response.data
       }
     )).catch(error => {
-      console.log(error);
-      //localStorage.removeItem("jwt-token");
-      this.props.history.push("/");
+      if(error.response.status === 401){
+        localStorage.removeItem("jwt-token");
+        this.props.history.push("/");
+      } else {
+        // TODO: Display message saying there was an error
+      }
     });
   }
 
   render() {
-    console.log(typeof(this.props.children));
-
     if(this.state.user === undefined) {
       return (
         <div>
+          {/* TODO: User i18next */}
           <h1>Loading...</h1>
         </div>
       )
@@ -57,4 +61,4 @@ Authenticated.propTypes = {
   children: PropTypes.object.isRequired
 }
 
-export default Authenticated;
+export default withRouter(Authenticated);
