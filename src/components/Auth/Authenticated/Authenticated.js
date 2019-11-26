@@ -31,11 +31,11 @@ class Authenticated extends Component {
         user: response.data
       }
     )).catch(error => {
-      if(error.response.status === 401){
+      if(error.response && error.response.status === 401){
         localStorage.removeItem("jwt-token");
         this.props.history.push("/");
       } else {
-        // TODO: Display message saying there was an error
+        // TODO: Display message saying there was an unexpected error
       }
     });
   }
