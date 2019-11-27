@@ -12,38 +12,38 @@ class Authenticated extends Component {
 
     this.state = {
       user: undefined
-    }
+    };
   }
 
   componentDidMount() {
     const jwt = getJwt();
-    
-    if(!jwt) {
+
+    if (!jwt) {
       this.props.history.push("/");
       // TODO: Display message saying you need to log in
     }
 
     axios.get("http://localhost:3001/api/v1/user/get_user/", {
-      headers: { Authorization: `Bearer ${jwt}`}
+      headers: { Authorization: `Bearer ${jwt}` }
     })
-    .then(response => this.setState(
-      {
-        user: response.data
-      }
-    )).catch(error => {
-      if(error.response && error.response.status === 401){
-        localStorage.removeItem("jwt-token");
-        this.props.history.push("/");
-      } else {
-        // TODO: Display message saying there was an unexpected error
-      }
-    });
+      .then(response => this.setState(
+        {
+          user: response.data
+        }
+      )).catch(error => {
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem("jwt-token");
+          this.props.history.push("/");
+        } else {
+          // TODO: Display message saying there was an unexpected error
+        }
+      });
   }
 
   render() {
     const { t } = this.props;
 
-    if(this.state.user === undefined) {
+    if (this.state.user === undefined) {
       return (
         <div>
           {/* TODO: Make this look better */}
