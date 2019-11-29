@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { translate } from 'react-i18next';
+import { withRouter } from 'react-router-dom';
+import LeftMenuContext from '../../../contexts/left-menu'
+
 
 class LoginForm extends Component {
+	static contextType = LeftMenuContext;
+
 	constructor(props) {
 		super(props);
 
@@ -23,23 +28,24 @@ class LoginForm extends Component {
 
 		event.preventDefault();
 		axios.post("http://localhost:3001/login",
-		{
-			user: {
-				email: email,
-				password: password,
-			}
-		},
-		{ withCredentials: true })
-		.then(response => {
-			localStorage.setItem('jwt-token', response.data);
-		}).catch(error => {
-			console.log(error);
-			if(error.response.status === 401) {
-				// TODO: Display message saying credentials were incorrect or account is locked
-			} else {
-				// TODO: Display message saying there was an unexpected error
-			}
-		})
+			{
+				user: {
+					email: email,
+					password: password,
+				}
+			},
+			{ withCredentials: true })
+			.then(response => {
+				localStorage.setItem('jwt-token', response.data);
+				this.props.history.push("/app");
+			}).catch(error => {
+				console.log(error);
+				if (error.response.status === 401) {
+					// TODO: Display message saying credentials were incorrect or account is locked
+				} else {
+					// TODO: Display message saying there was an unexpected error
+				}
+			})
 	}
 
 	handleChange(event) {
@@ -100,4 +106,4 @@ class LoginForm extends Component {
 	}
 }
 
-export default translate()(LoginForm);
+export default withRouter(translate()(LoginForm));

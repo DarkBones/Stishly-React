@@ -1,26 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 function LeftMenu(props) {
-  let width = 500;
-  if (props.leftMenuRetracted) {
-    width = 0;
-  }
-
   const styles = {
-    resize: "horizontal",
-    width: width,
-    minHeight: 300,
-    backgroundColor: "lightgray"
-  };
-
-  if (props.leftMenuEnabled) {
-
+    width: props.extended ? 500 : 0,
+    height: 500,
+    backgroundColor: 'black'
   }
-  return (
-    <div style={styles}>
-      left menu
-    </div>
-  );
+
+  if (props.enabled) {
+    return (
+      <div style={styles}>
+        TEST
+      </div>
+    );
+  } else {
+    return null;
+  }
 }
 
 export default LeftMenu;
