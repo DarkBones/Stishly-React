@@ -1,74 +1,88 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import '../../assets/css/App';
-import Home from '../Home';
-import SignupForm from '../Auth/SignupForm';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from "react";
 import Authenticated from '../Auth/Authenticated';
-import Application from '../Application';
 import LeftMenuContext from '../../contexts/left-menu';
-import Navbar from '../Navigation/Navbar';
-import LeftMenu from '../Navigation/LeftMenu';
-import isAuthenticated from '../../helpers/authenticated';
+import UserContext from '../../contexts/user';
+import Navbar from "../Navigation/Navbar";
+import LeftMenu from "../Navigation/LeftMenu";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PrivateRoute from '../Auth/PrivateRoute';
+import Home from "../Home";
+import SignupForm from "../Auth/SignupForm";
+import Private from "../Auth/Private";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Inprivate from "../Auth/Inprivate";
+import InprivateRoute from "../Auth/InprivateRoute";
 
-import history from "../../history";
-// import authenticated from '../../helpers/authenticated';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      authenticated: false,
       leftMenuEnabled: false,
       leftMenuExtended: true
     }
 
     this.enableLeftMenu = this.enableLeftMenu.bind(this);
     this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
-  }
-
-  componentDidMount() {
-    // const authenticated = isAuthenticated();
-    // alert(isAuthenticated());
+    this.setAuthenticated = this.setAuthenticated.bind(this);
   }
 
   enableLeftMenu = enabled => {
     this.setState({
       leftMenuEnabled: enabled
     });
-  };
+  }
 
   toggleLeftMenu() {
     this.setState({
       leftMenuExtended: !this.state.leftMenuExtended
     });
-  };
+  }
+
+  setAuthenticated = authenticated => {
+    this.setState({
+      authenticated: authenticated,
+      leftMenuEnabled: authenticated
+    });
+  }
 
   render() {
     return (
-      <LeftMenuContext.Provider value={{
-        leftMenuEnabled: this.state.leftMenuEnabled,
-        leftMenuExtended: this.state.leftMenuExtended,
-        enableLeftMenu: this.enableLeftMenu,
-        toggleLeftMenu: this.toggleLeftMenu
-      }}>
-        <Navbar />
-        <LeftMenu
-          enabled={this.state.leftMenuEnabled}
-          extended={this.state.leftMenuExtended}
-        />
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/signup" component={SignupForm} />
-            <Authenticated history={history}>
-              <Route path="/app" component={Application} />
-            </Authenticated>
-          </Switch>
-        </BrowserRouter>
-      </LeftMenuContext.Provider>
-    );
+      <Authenticated
+        setAuthenticated={this.setAuthenticated}
+      >
+        <LeftMenuContext.Provider value={{
+          leftMenuEnabled: this.state.leftMenuEnabled,
+          leftMenuExtended: this.state.leftMenuEnabled,
+          enableLeftMenu: this.enableLeftMenu,
+          toggleLeftMenu: this.toggleLeftMenu
+        }}>
+          <UserContext.Provider value={{
+            authenticated: this.state.authenticated,
+            setAuthenticated: this.setAuthenticated
+          }}>
+            <Navbar />
+            <LeftMenu
+              enabled={this.state.leftMenuEnabled}
+              extended={this.state.leftMenuExtended}
+            />
+            <BrowserRouter>
+              <Switch>
+                {/* Inprivate Routes */}
+                <InprivateRoute exact path="/" component={Home} />
+                <InprivateRoute exact path="/signup" component={SignupForm} />
+                {/* Private Routes */}
+                <PrivateRoute exact path="/app" component={SignupForm} />
+              </Switch>
+            </BrowserRouter>
+          </UserContext.Provider>
+        </LeftMenuContext.Provider>
+      </Authenticated>
+    )
   }
+
 }
 
 export default App;

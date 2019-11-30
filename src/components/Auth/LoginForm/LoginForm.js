@@ -3,10 +3,11 @@ import axios from 'axios';
 import { translate } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import LeftMenuContext from '../../../contexts/left-menu'
+import UserContext from '../../../contexts/user';
 
 
 class LoginForm extends Component {
-	static contextType = LeftMenuContext;
+	static contextType = UserContext;
 
 	constructor(props) {
 		super(props);
@@ -37,10 +38,11 @@ class LoginForm extends Component {
 			{ withCredentials: true })
 			.then(response => {
 				localStorage.setItem('jwt-token', response.data);
+				this.context.setAuthenticated(true);
 				this.props.history.push("/app");
 			}).catch(error => {
-				console.log(error);
 				if (error.response.status === 401) {
+					this.context.setAuthenticated(false);
 					// TODO: Display message saying credentials were incorrect or account is locked
 				} else {
 					// TODO: Display message saying there was an unexpected error

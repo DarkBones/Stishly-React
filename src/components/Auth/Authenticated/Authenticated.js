@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { getJwt } from '../../../helpers/jwt';
 import axios from 'axios';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-
 
 class Authenticated extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: undefined
+      loading: true
     };
   }
 
@@ -19,50 +16,54 @@ class Authenticated extends Component {
     const jwt = getJwt();
 
     if (!jwt) {
-      this.props.history.push("/");
-      // TODO: Display message saying you need to log in
+      this.setState({
+        loading: false
+      })
+      this.props.setAuthenticated(false);
+      return;
     }
 
     axios.get("http://localhost:3001/api/v1/user/get_user/", {
       headers: { Authorization: `Bearer ${jwt}` }
     })
-      .then(response => this.setState(
-        {
-          user: response.data
-        }
-      )).catch(error => {
+      .then(() => {
+        this.props.setAuthenticated(true);
+        this.setState({
+          loading: false
+        });
+      })
+      .catch(error => {
         if (error.response && error.response.status === 401) {
           localStorage.removeItem("jwt-token");
-          this.props.history.push("/");
         } else {
-          // TODO: Display message saying there was an unexpected error
+          // TODO: Return message saying there was an unexpected error
         }
+        this.setState({
+          loading: false
+        });
+        this.props.setAuthenticated(false);
       });
   }
 
   render() {
     const { t } = this.props;
 
-    if (this.state.user === undefined) {
+    if (this.state.loading) {
       return (
-        <div>
-          {/* TODO: Make this look better */}
+        <React.Fragment>
+          {/* {TODO: Make this look better} */}
           <h1>{t('auth.authenticated.loading')} ...</h1>
-        </div>
+        </React.Fragment>
       )
     }
 
     return (
-      <div>
+      <React.Fragment>
         {this.props.children}
-      </div>
-    );
+      </React.Fragment>
+    )
   }
+
 }
 
-Authenticated.propTypes = {
-  history: PropTypes.object.isRequired,
-  children: PropTypes.object.isRequired
-}
-
-export default withRouter(translate()(Authenticated));
+export default translate()(Authenticated);
