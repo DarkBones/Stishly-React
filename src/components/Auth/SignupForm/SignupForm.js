@@ -30,21 +30,21 @@ class SignupForm extends Component {
 
     event.preventDefault();
     axios.post("http://localhost:3001/signup",
-    {
-      user: {
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
-        password: password,
-        password_confirmation: password_confirmation,
-      }
-    })
-    .then(response => {
-      console.log("Success: " + JSON.stringify(response));
-    }).catch(error => {
-      console.log("Failure: " + JSON.stringify(error));
-    })
-    
+      {
+        user: {
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          password: password,
+          password_confirmation: password_confirmation,
+        }
+      })
+      .then(response => {
+        console.log("Success: " + JSON.stringify(response));
+      }).catch(error => {
+        console.log("Failure: " + JSON.stringify(error));
+      })
+
   }
 
   handleChange(event) {
@@ -62,15 +62,15 @@ class SignupForm extends Component {
           <div className="row">
             <div className="col-12 col-sm-6 py-2">
               <label>{t('auth.signupform.firstname.label')}</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="first_name"
-                  placeholder={t('auth.signupform.firstname.placeholder')}
-                  value={this.state.first_name}
-                  onChange={this.handleChange}
-                  required
-                />
+              <input
+                className="form-control"
+                type="text"
+                name="first_name"
+                placeholder={t('auth.signupform.firstname.placeholder')}
+                value={this.state.first_name}
+                onChange={this.handleChange}
+                required
+              />
             </div>
 
             <div className="col-12 col-sm-6 py-2">

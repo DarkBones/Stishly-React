@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { translate } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
-import LeftMenuContext from '../../../contexts/left-menu'
 import UserContext from '../../../contexts/user';
 
 

@@ -4,13 +4,11 @@ import LeftMenuContext from '../../contexts/left-menu';
 import UserContext from '../../contexts/user';
 import Navbar from "../Navigation/Navbar";
 import LeftMenu from "../Navigation/LeftMenu";
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import PrivateRoute from '../Auth/PrivateRoute';
 import Home from "../Home";
 import SignupForm from "../Auth/SignupForm";
-import Private from "../Auth/Private";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Inprivate from "../Auth/Inprivate";
 import InprivateRoute from "../Auth/InprivateRoute";
 
 

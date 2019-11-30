@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import UserContext from '../../../contexts/user';
 import { Route, Redirect } from 'react-router-dom';
 
