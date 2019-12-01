@@ -4,7 +4,6 @@ import { translate } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import UserContext from '../../../contexts/user';
 
-
 class LoginForm extends Component {
 	static contextType = UserContext;
 
@@ -40,7 +39,7 @@ class LoginForm extends Component {
 				this.context.setAuthenticated(true);
 				this.props.history.push("/app");
 			}).catch(error => {
-				if (error.response.status === 401) {
+				if (error.response && error.response.status === 401) {
 					this.context.setAuthenticated(false);
 					// TODO: Display message saying credentials were incorrect or account is locked
 				} else {
