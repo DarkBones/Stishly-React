@@ -7,7 +7,7 @@ import SignupForm from '../Auth/SignupForm';
 
 const Routes = () => {
   return (
-    <div className="container">
+    <div className="container container-content">
       <BrowserRouter>
         <Switch>
           {/* Inprivate Routes */}

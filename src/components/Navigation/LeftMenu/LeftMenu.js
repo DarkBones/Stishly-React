@@ -4,7 +4,7 @@ class LeftMenu extends Component {
   render() {
     if (this.props.extended) {
       return (
-        <div className="container">
+        <div className="container container-content">
           <h4>ACCOUNTS</h4>
           <p>
             test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
