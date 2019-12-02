@@ -23,11 +23,6 @@ class App extends Component {
     this.enableLeftMenu = this.enableLeftMenu.bind(this);
     this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
     this.setAuthenticated = this.setAuthenticated.bind(this);
-
-    const leftMenuWidth = localStorage.getItem("splitPos") == null
-      ? 350
-      : localStorage.getItem("splitPos");
-    this.leftMenuWidth = leftMenuWidth;
   }
 
   enableLeftMenu = enabled => {
@@ -67,10 +62,6 @@ class App extends Component {
             setAuthenticated: this.setAuthenticated
           }}>
             <Navbar />
-            {/* <LeftMenu
-              enabled={this.state.leftMenuEnabled}
-              extended={this.state.leftMenuExtended}
-            /> */}
             <Content
               leftMenuEnabled={this.state.leftMenuEnabled}
               leftMenuExtended={this.state.leftMenuExtended}

@@ -18,7 +18,7 @@ const Routes = () => {
         </Switch>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default Routes;

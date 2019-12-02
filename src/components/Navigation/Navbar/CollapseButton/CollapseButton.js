@@ -1,5 +1,7 @@
 import React from 'react';
 import LeftMenuContext from '../../../../contexts/left-menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 function CollapseButton(props) {
   return (
@@ -9,7 +11,7 @@ function CollapseButton(props) {
           <button
             onClick={context.toggleLeftMenu}
           >
-            collapse
+            <FontAwesomeIcon icon={faBars} />
           </button>
           : null
       )}

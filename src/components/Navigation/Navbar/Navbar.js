@@ -13,10 +13,13 @@ function Navbar(props) {
 						leftMenuRetracted={props.leftMenuRetracted}
 						onClick={context.toggleLeftMenu}
 					/>
-					<img src={logo} className="logo" alt="Stishly" height="50" />
+					<a href="/">
+						<img src={logo} className="logo float-left" alt="Stishly" height="35" />
+					</a>
 				</nav>
-			)}
-		</LeftMenuContext.Consumer>
+			)
+			}
+		</LeftMenuContext.Consumer >
 	);
 }
 
