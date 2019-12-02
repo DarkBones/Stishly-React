@@ -7,15 +7,17 @@ import SignupForm from '../Auth/SignupForm';
 
 const Routes = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        {/* Inprivate Routes */}
-        <InprivateRoute exact path="/" component={Home} />
-        <InprivateRoute path="/signup" component={SignupForm} />
-        {/* Private Routes */}
-        <PrivateRoute exact path="/app" component={SignupForm} />
-      </Switch>
-    </BrowserRouter>
+    <div className="container">
+      <BrowserRouter>
+        <Switch>
+          {/* Inprivate Routes */}
+          <InprivateRoute exact path="/" component={Home} />
+          <InprivateRoute path="/signup" component={SignupForm} />
+          {/* Private Routes */}
+          <PrivateRoute exact path="/app" component={SignupForm} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   )
 }
 
