@@ -2,16 +2,36 @@ import React, { Component } from 'react';
 import LeftMenuContext from '../../../contexts/left-menu';
 
 class LeftMenu extends Component {
-  render() {
-    if (this.props.extended) {
-      return (
-        <div>
-          test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-        </div>
-      );
-    } else {
-      return null;
+  constructor(props) {
+    super(props);
+
+    this.menuWidth = this.menuWidth.bind(this);
+  }
+
+  menuWidth() {
+    if (!this.props.extended) {
+      return 0;
     }
+
+    if (localStorage.getItem("left-menu-width") !== null) {
+      return localStorage.getItem("left-menu-width");
+    }
+
+    return 500;
+  }
+
+  render() {
+    const styles = {
+      width: this.menuWidth(),
+      height: 500,
+      backgroundColor: 'green'
+    }
+
+    return (
+      <div style={styles}>
+        test
+      </div>
+    );
   }
 }
 

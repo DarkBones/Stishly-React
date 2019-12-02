@@ -3,19 +3,21 @@ import Authenticated from '../Auth/Authenticated';
 import LeftMenuContext from '../../contexts/left-menu';
 import UserContext from '../../contexts/user';
 import Navbar from "../Navigation/Navbar";
-import LeftMenu from "../Navigation/LeftMenu";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Routes from "./Routes";
-import SplitPane from "react-split-pane";
+import Content from "./Content";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
+    const leftMenuExtended = localStorage.getItem("left-menu-extd") == null
+      ? 44
+      : localStorage.getItem("left-menu-extd") === "true";
+
     this.state = {
       authenticated: false,
       leftMenuEnabled: false,
-      leftMenuExtended: true
+      leftMenuExtended: leftMenuExtended
     }
 
     this.enableLeftMenu = this.enableLeftMenu.bind(this);
@@ -38,6 +40,8 @@ class App extends Component {
     this.setState({
       leftMenuExtended: !this.state.leftMenuExtended
     });
+
+    localStorage.setItem("left-menu-extd", !this.state.leftMenuExtended);
   }
 
   setAuthenticated = authenticated => {
@@ -67,14 +71,11 @@ class App extends Component {
               enabled={this.state.leftMenuEnabled}
               extended={this.state.leftMenuExtended}
             /> */}
-            <SplitPane
-              split="vertical"
-              minSize={200}
-              defaultSize={parseInt(this.leftMenuWidth)}
-              onChange={size => localStorage.setItem('splitPos', size)}>
-              <div>THIS IS A TEST</div>
-              <Routes />
-            </SplitPane>
+            <Content
+              leftMenuEnabled={this.state.leftMenuEnabled}
+              leftMenuExtended={this.state.leftMenuExtended}
+              leftMenuWidth={200}
+            />
           </UserContext.Provider>
         </LeftMenuContext.Provider>
       </Authenticated >
