@@ -6,6 +6,7 @@ import Navbar from "../Navigation/Navbar";
 import LeftMenu from "../Navigation/LeftMenu";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from "./Routes";
+import SplitPane from "react-split-pane";
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +21,11 @@ class App extends Component {
     this.enableLeftMenu = this.enableLeftMenu.bind(this);
     this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
     this.setAuthenticated = this.setAuthenticated.bind(this);
+
+    const leftMenuWidth = localStorage.getItem("splitPos") == null
+      ? 350
+      : localStorage.getItem("splitPos");
+    this.leftMenuWidth = leftMenuWidth;
   }
 
   enableLeftMenu = enabled => {
@@ -57,14 +63,21 @@ class App extends Component {
             setAuthenticated: this.setAuthenticated
           }}>
             <Navbar />
-            <LeftMenu
+            {/* <LeftMenu
               enabled={this.state.leftMenuEnabled}
               extended={this.state.leftMenuExtended}
-            />
-            <Routes />
+            /> */}
+            <SplitPane
+              split="vertical"
+              minSize={200}
+              defaultSize={parseInt(this.leftMenuWidth)}
+              onChange={size => localStorage.setItem('splitPos', size)}>
+              <div>THIS IS A TEST</div>
+              <Routes />
+            </SplitPane>
           </UserContext.Provider>
         </LeftMenuContext.Provider>
-      </Authenticated>
+      </Authenticated >
     )
   }
 
