@@ -10,6 +10,7 @@ function CollapseButton(props) {
         context.leftMenuEnabled ?
           <button
             onClick={context.toggleLeftMenu}
+            className="btn btn-light mr-4"
           >
             <FontAwesomeIcon icon={faBars} />
           </button>
