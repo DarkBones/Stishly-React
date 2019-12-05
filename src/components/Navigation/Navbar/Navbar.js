@@ -14,7 +14,7 @@ function Navbar(props) {
 						onClick={context.toggleLeftMenu}
 					/>
 					<a href="/">
-						<img src={logo} className="logo" alt="Stishly" height="40" />
+						<img src={logo} className="logo" alt="Stishly" height="35" />
 					</a>
 				</nav>
 			)
