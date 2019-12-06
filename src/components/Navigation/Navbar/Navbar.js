@@ -17,7 +17,7 @@ function Navbar(props) {
 						<img src={logo} className="logo" alt="Stishly" height="35" />
 					</a>
 				</nav>
-			)
+			);
 			}
 		</LeftMenuContext.Consumer >
 	);
