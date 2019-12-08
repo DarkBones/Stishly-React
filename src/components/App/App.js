@@ -23,6 +23,7 @@ class App extends Component {
     this.enableLeftMenu = this.enableLeftMenu.bind(this);
     this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
     this.setAuthenticated = this.setAuthenticated.bind(this);
+    this.extendLeftMenu = this.extendLeftMenu.bind(this);
   }
 
   enableLeftMenu = enabled => {
@@ -37,6 +38,12 @@ class App extends Component {
     });
 
     localStorage.setItem("left-menu-extd", !this.state.leftMenuExtended);
+  }
+
+  extendLeftMenu = extended => {
+    this.setState({
+      leftMenuExtended: extended
+    });
   }
 
   setAuthenticated = authenticated => {
@@ -55,7 +62,8 @@ class App extends Component {
           leftMenuEnabled: this.state.leftMenuEnabled,
           leftMenuExtended: this.state.leftMenuEnabled,
           enableLeftMenu: this.enableLeftMenu,
-          toggleLeftMenu: this.toggleLeftMenu
+          toggleLeftMenu: this.toggleLeftMenu,
+          extendLeftMenu: this.extendLeftMenu
         }}>
           <UserContext.Provider value={{
             authenticated: this.state.authenticated,
@@ -66,6 +74,7 @@ class App extends Component {
               leftMenuEnabled={this.state.leftMenuEnabled}
               leftMenuExtended={this.state.leftMenuExtended}
               leftMenuWidth={200}
+              extendLeftMenu={this.extendLeftMenu}
             />
           </UserContext.Provider>
         </LeftMenuContext.Provider>

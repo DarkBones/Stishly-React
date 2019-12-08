@@ -11,6 +11,29 @@ class Content extends Component {
       ? 350
       : localStorage.getItem("left-menu-width");
     this.leftMenuWidth = leftMenuWidth;
+
+    this.state = {
+      leftMenuWidth: this.leftMenuWidth
+    }
+  }
+
+  forceUpdate() {
+    console.log("this.props.width");
+    if (window.innerWidth <= this.state.leftMenuWidth || window.innerWidth <= 583) {
+      this.props.extendLeftMenu(false);
+    } else if (window.innerWidth > this.state.leftMenuWidth && window.innerWidth > 583) {
+      this.props.extendLeftMenu(true);
+    }
+  }
+
+  resize = () => this.forceUpdate();
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
   }
 
   render() {
@@ -20,11 +43,18 @@ class Content extends Component {
           split="vertical"
           minSize={200}
           defaultSize={parseInt(this.leftMenuWidth)}
-          onChange={size => localStorage.setItem('left-menu-width', size)}
+          onChange={size => {
+            localStorage.setItem('left-menu-width', size)
+            this.setState({
+              leftMenuWidth: size
+            });
+          }}
         >
           <LeftMenu
             enabled={this.props.leftMenuEnabled}
             extended={this.props.leftMenuExtended}
+            extendLeftMenu={this.props.extendLeftMenu}
+            width={this.state.leftMenuWidth}
           />
           <Routes />
         </SplitPane>
