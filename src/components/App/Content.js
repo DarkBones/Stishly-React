@@ -12,21 +12,35 @@ class Content extends Component {
       : localStorage.getItem("left-menu-width");
     this.leftMenuWidth = leftMenuWidth;
 
+    const leftMenuExtended = localStorage.getItem("left-menu-extd") == null
+      ? 44
+      : localStorage.getItem("left-menu-extd") === "true";
+
     this.state = {
-      leftMenuWidth: this.leftMenuWidth
+      leftMenuWidth: this.leftMenuWidth,
+      leftMenuExtended: leftMenuExtended
     }
+
+    this.extendLeftMenu = this.extendLeftMenu.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
 
-  forceUpdate() {
+  extendLeftMenu = extended => {
+    this.setState({
+      leftMenuExtended: extended
+    });
+  }
+
+  handleResize() {
     console.log("this.props.width");
     if (window.innerWidth <= this.state.leftMenuWidth || window.innerWidth <= 583) {
-      this.props.extendLeftMenu(false);
+      this.extendLeftMenu(false);
     } else if (window.innerWidth > this.state.leftMenuWidth && window.innerWidth > 583) {
-      this.props.extendLeftMenu(true);
+      this.extendLeftMenu(true);
     }
   }
 
-  resize = () => this.forceUpdate();
+  resize = () => this.handleResize();
 
   componentDidMount() {
     window.addEventListener('resize', this.resize);
@@ -52,8 +66,8 @@ class Content extends Component {
         >
           <LeftMenu
             enabled={this.props.leftMenuEnabled}
-            extended={this.props.leftMenuExtended}
-            extendLeftMenu={this.props.extendLeftMenu}
+            extended={this.state.leftMenuExtended}
+            extendLeftMenu={this.extendLeftMenu}
             width={this.state.leftMenuWidth}
           />
           <Routes />
