@@ -18,7 +18,8 @@ class Content extends Component {
 
     this.state = {
       leftMenuWidth: this.leftMenuWidth,
-      leftMenuExtended: leftMenuExtended
+      leftMenuExtended: leftMenuExtended,
+      leftMenuMobile: window.innerWidth <= leftMenuWidth || window.innerWidth <= 583
     }
 
     this.extendLeftMenu = this.extendLeftMenu.bind(this);
@@ -31,12 +32,18 @@ class Content extends Component {
     });
   }
 
+  setLeftMenuMobile = isMobile => {
+    this.setState({
+      leftMenuMobile: isMobile
+    })
+  }
+
   handleResize() {
     console.log("this.props.width");
     if (window.innerWidth <= this.state.leftMenuWidth || window.innerWidth <= 583) {
-      this.extendLeftMenu(false);
+      this.setLeftMenuMobile(true);
     } else if (window.innerWidth > this.state.leftMenuWidth && window.innerWidth > 583) {
-      this.extendLeftMenu(true);
+      this.setLeftMenuMobile(false);
     }
   }
 
