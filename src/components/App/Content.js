@@ -35,7 +35,7 @@ class Content extends Component {
   setLeftMenuMobile = isMobile => {
     this.setState({
       leftMenuMobile: isMobile
-    })
+    });
   }
 
   handleResize() {
