@@ -39,7 +39,6 @@ class Content extends Component {
   }
 
   handleResize() {
-    console.log("this.props.width");
     if (window.innerWidth <= this.state.leftMenuWidth || window.innerWidth <= 583) {
       this.setLeftMenuMobile(true);
     } else if (window.innerWidth > this.state.leftMenuWidth && window.innerWidth > 583) {
