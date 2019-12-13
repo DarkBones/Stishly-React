@@ -3,6 +3,32 @@ import SplitPane from "react-split-pane";
 import LeftMenu from "../Navigation/LeftMenu";
 import Routes from "./Routes";
 
+function LeftMenuContainer(props) {
+  if (props.isMobile) {
+    return (
+      <React.Fragment>
+        {props.children}
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <SplitPane
+        split="vertical"
+        minSize={200}
+        defaultSize={parseInt(props.leftMenuWidth)}
+        onChange={size => {
+          localStorage.setItem('left-menu-width', size)
+          this.setState({
+            leftMenuWidth: size
+          });
+        }}
+      >
+        {props.children}
+      </SplitPane>
+    );
+  }
+}
+
 class Content extends Component {
   constructor(props) {
     super(props);
@@ -59,17 +85,7 @@ class Content extends Component {
   render() {
     if (this.props.leftMenuEnabled && this.props.leftMenuExtended) {
       return (
-        <SplitPane
-          split="vertical"
-          minSize={200}
-          defaultSize={parseInt(this.leftMenuWidth)}
-          onChange={size => {
-            localStorage.setItem('left-menu-width', size)
-            this.setState({
-              leftMenuWidth: size
-            });
-          }}
-        >
+        <LeftMenuContainer leftMenuWidth={this.leftMenuWidth} isMobile={this.state.leftMenuMobile}>
           <LeftMenu
             enabled={this.props.leftMenuEnabled}
             extended={this.state.leftMenuExtended}
@@ -77,7 +93,7 @@ class Content extends Component {
             width={this.state.leftMenuWidth}
           />
           <Routes />
-        </SplitPane>
+        </LeftMenuContainer>
       );
     } else {
       return (
