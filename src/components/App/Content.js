@@ -7,7 +7,8 @@ function LeftMenuContainer(props) {
   if (props.isMobile) {
     return (
       <React.Fragment>
-        {props.children}
+        <div>{props.children[0]}</div>
+        <div>{props.children[1]}</div>
       </React.Fragment>
     );
   } else {
