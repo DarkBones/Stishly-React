@@ -61,8 +61,11 @@ class Content extends Component {
 
   setLeftMenuMobile = isMobile => {
     this.setState({
-      leftMenuMobile: isMobile
+      leftMenuMobile: isMobile,
+      leftMenuExtended: !isMobile
     });
+
+    localStorage.setItem("left-menu-extd", !isMobile);
   }
 
   handleResize() {
