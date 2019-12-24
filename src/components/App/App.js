@@ -65,7 +65,7 @@ class App extends Component {
             setAuthenticated: this.setAuthenticated
           }}>
             <Navbar />
-            <Content />
+            <Content toggleLeftMenu={this.toggleLeftMenu} />
           </UserContext.Provider>
         </LeftMenuContext.Provider>
       </Authenticated>

@@ -103,9 +103,14 @@ class Content extends Component {
 
   handleResize() {
     let mobile = isMobile();
-    this.setState({
-      isMobile: mobile
-    });
+
+    if (mobile !== this.state.isMobile) {
+      this.setState({
+        isMobile: isMobile(),
+      });
+
+      this.props.toggleLeftMenu();
+    }
   }
 
   resize = () => this.handleResize();
