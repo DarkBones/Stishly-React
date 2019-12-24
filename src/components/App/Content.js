@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SplitPane from "react-split-pane";
+import LeftMenuContext from "../../contexts/left-menu";
 import LeftMenu from "../Navigation/LeftMenu";
 import Routes from "./Routes";
 
@@ -7,8 +8,8 @@ function LeftMenuContainer(props) {
   if (props.isMobile) {
     return (
       <React.Fragment>
-        <div>{props.children[0]}</div>
-        <div>{props.children[1]}</div>
+        <div>{props.leftMenu}</div>
+        <div>{props.children}</div>
       </React.Fragment>
     );
   } else {
@@ -18,15 +19,66 @@ function LeftMenuContainer(props) {
         minSize={200}
         defaultSize={parseInt(props.leftMenuWidth)}
         onChange={size => {
-          localStorage.setItem('left-menu-width', size)
-          this.setState({
-            leftMenuWidth: size
-          });
+          localStorage.setItem("left-menu-width", size)
         }}
       >
+        {props.leftMenu}
         {props.children}
       </SplitPane>
     );
+  }
+}
+
+function LeftMenuRender(props) {
+  return (
+    <LeftMenu
+      enabled={props.leftMenuEnabled}
+      extended={true}
+      // extendLeftMenu={extendLeftMenu}
+      width={props.leftMenuWidth}
+    />
+  );
+}
+
+function leftMenuWidth() {
+  let width = localStorage.getItem("left-menu-width") == null
+    ? 350
+    : parseInt(localStorage.getItem("left-menu-width"));
+  return width;
+}
+
+function isMobile() {
+  let menuWidth = leftMenuWidth();
+
+  return window.innerWidth <= menuWidth || window.innerWidth <= 583
+}
+
+function ContentRender(props) {
+  if (props.leftMenuEnabled && props.leftMenuExtended) {
+    if (props.isMobile) {
+      return (
+        <React.Fragment>
+          <div>{props.leftMenu}</div>
+          <div>{props.children}</div>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <SplitPane
+          split="vertical"
+          minSize={200}
+          defaultSize={parseInt(props.leftMenuWidth)}
+          onChange={size => {
+            localStorage.setItem("left-menu-width", size)
+          }}
+        >
+          {props.leftMenu}
+          {props.children}
+        </SplitPane>
+      );
+    }
+  } else {
+    return <Routes />;
   }
 }
 
@@ -34,46 +86,23 @@ class Content extends Component {
   constructor(props) {
     super(props);
 
-    const leftMenuWidth = localStorage.getItem("left-menu-width") == null
-      ? 350
-      : localStorage.getItem("left-menu-width");
-    this.leftMenuWidth = leftMenuWidth;
-
-    const leftMenuExtended = localStorage.getItem("left-menu-extd") == null
-      ? 44
-      : localStorage.getItem("left-menu-extd") === "true";
+    this.isMobile = this.isMobile.bind(this);
+    this.handleResize = this.handleResize.bind(this);
 
     this.state = {
-      leftMenuWidth: this.leftMenuWidth,
-      leftMenuExtended: leftMenuExtended,
-      leftMenuMobile: window.innerWidth <= leftMenuWidth || window.innerWidth <= 583
+      isMobile: this.isMobile()
     }
-
-    this.extendLeftMenu = this.extendLeftMenu.bind(this);
-    this.handleResize = this.handleResize.bind(this);
   }
 
-  extendLeftMenu = extended => {
-    this.setState({
-      leftMenuExtended: extended
-    });
-  }
-
-  setLeftMenuMobile = isMobile => {
-    this.setState({
-      leftMenuMobile: isMobile,
-      leftMenuExtended: !isMobile
-    });
-
-    localStorage.setItem("left-menu-extd", !isMobile);
+  isMobile() {
+    let menuWidth = leftMenuWidth();
+    return window.innerWidth <= menuWidth || window.innerWidth <= 583
   }
 
   handleResize() {
-    if (window.innerWidth <= this.state.leftMenuWidth || window.innerWidth <= 583) {
-      this.setLeftMenuMobile(true);
-    } else if (window.innerWidth > this.state.leftMenuWidth && window.innerWidth > 583) {
-      this.setLeftMenuMobile(false);
-    }
+    this.setState({
+      isMobile: isMobile()
+    });
   }
 
   resize = () => this.handleResize();
@@ -87,23 +116,21 @@ class Content extends Component {
   }
 
   render() {
-    if (this.props.leftMenuEnabled && this.props.leftMenuExtended) {
-      return (
-        <LeftMenuContainer leftMenuWidth={this.leftMenuWidth} isMobile={this.state.leftMenuMobile}>
-          <LeftMenu
-            enabled={this.props.leftMenuEnabled}
-            extended={this.state.leftMenuExtended}
-            extendLeftMenu={this.extendLeftMenu}
-            width={this.state.leftMenuWidth}
-          />
-          <Routes />
-        </LeftMenuContainer>
-      );
-    } else {
-      return (
-        <Routes />
-      );
-    }
+    return (
+      <LeftMenuContext.Consumer>
+        {context => (
+          <ContentRender
+            isMobile={this.state.isMobile}
+            leftMenuEnabled={context.leftMenuEnabled}
+            leftMenuExtended={context.leftMenuExtended}
+            leftMenu={<LeftMenuRender />}
+            leftMenuWidth={leftMenuWidth()}
+          >
+            <Routes />
+          </ContentRender>
+        )}
+      </LeftMenuContext.Consumer>
+    );
   }
 }
 

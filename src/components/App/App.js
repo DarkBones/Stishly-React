@@ -1,33 +1,31 @@
 import React, { Component } from "react";
-import Authenticated from '../Auth/Authenticated';
-import LeftMenuContext from '../../contexts/left-menu';
-import UserContext from '../../contexts/user';
+import Authenticated from "../Auth/Authenticated";
+import LeftMenuContext from "../../contexts/left-menu";
+import UserContext from "../../contexts/user";
 import Navbar from "../Navigation/Navbar";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Content from "./Content";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    const leftMenuExtended = localStorage.getItem("left-menu-extd") == null
-      ? 44
-      : localStorage.getItem("left-menu-extd") === "true";
-
     this.state = {
       authenticated: false,
-      leftMenuEnabled: false,
-      leftMenuExtended: leftMenuExtended
+      leftMenuExtended: localStorage.getItem("left-menu-extd") == null
+        ? true
+        : localStorage.getItem("left-menu-extd") === "true"
     }
 
-    this.enableLeftMenu = this.enableLeftMenu.bind(this);
+    this.setAuthenticated = this.setAuthenticated.bind(this);
     this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
     this.setAuthenticated = this.setAuthenticated.bind(this);
+    this.setMobile = this.setMobile.bind(this);
   }
 
-  enableLeftMenu = enabled => {
+  setAuthenticated = authenticated => {
     this.setState({
-      leftMenuEnabled: enabled
+      authenticated: authenticated
     });
   }
 
@@ -39,10 +37,15 @@ class App extends Component {
     localStorage.setItem("left-menu-extd", !this.state.leftMenuExtended);
   }
 
+  setMobile = isMobile => {
+    this.setState({
+      isMobile: isMobile
+    });
+  }
+
   setAuthenticated = authenticated => {
     this.setState({
-      authenticated: authenticated,
-      leftMenuEnabled: authenticated
+      authenticated: authenticated
     });
   }
 
@@ -52,27 +55,22 @@ class App extends Component {
         setAuthenticated={this.setAuthenticated}
       >
         <LeftMenuContext.Provider value={{
-          leftMenuEnabled: this.state.leftMenuEnabled,
-          leftMenuExtended: this.state.leftMenuEnabled,
-          enableLeftMenu: this.enableLeftMenu,
-          toggleLeftMenu: this.toggleLeftMenu
+          leftMenuEnabled: this.state.authenticated,
+          leftMenuExtended: this.state.leftMenuExtended,
+          toggleLeftMenu: this.toggleLeftMenu,
+          setMobile: this.setMobile,
         }}>
           <UserContext.Provider value={{
             authenticated: this.state.authenticated,
             setAuthenticated: this.setAuthenticated
           }}>
             <Navbar />
-            <Content
-              leftMenuEnabled={this.state.leftMenuEnabled}
-              leftMenuExtended={this.state.leftMenuExtended}
-              leftMenuWidth={200}
-            />
+            <Content />
           </UserContext.Provider>
         </LeftMenuContext.Provider>
-      </Authenticated >
-    )
+      </Authenticated>
+    );
   }
-
 }
 
 export default App;
