@@ -11,15 +11,11 @@ function LeftMenuSection(props) {
 class LeftMenu extends Component {
 
   render() {
-    if (this.props.extended) {
-      return (
-        <div className="container container-content">
-          <LeftMenuSection title="ACCOUNTS" />
-        </div>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <div className="container container-content">
+        <LeftMenuSection title="ACCOUNTS" />
+      </div>
+    );
   }
 }
 

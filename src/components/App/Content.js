@@ -30,11 +30,13 @@ function LeftMenuContainer(props) {
 }
 
 function LeftMenuRender(props) {
+  // let extended = localStorage.getItem("left-menu-extd") == null
+  //   ? true
+  //   : localStorage.getItem("left-menu-extd") === "true";
+
   return (
     <LeftMenu
       enabled={props.leftMenuEnabled}
-      extended={true}
-      // extendLeftMenu={extendLeftMenu}
       width={props.leftMenuWidth}
     />
   );
@@ -100,8 +102,9 @@ class Content extends Component {
   }
 
   handleResize() {
+    let mobile = isMobile();
     this.setState({
-      isMobile: isMobile()
+      isMobile: mobile
     });
   }
 

@@ -39,7 +39,7 @@ class App extends Component {
 
   setMobile = isMobile => {
     this.setState({
-      isMobile: isMobile
+      isMobile: isMobile,
     });
   }
 
