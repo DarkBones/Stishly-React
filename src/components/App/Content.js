@@ -30,10 +30,6 @@ function LeftMenuContainer(props) {
 }
 
 function LeftMenuRender(props) {
-  // let extended = localStorage.getItem("left-menu-extd") == null
-  //   ? true
-  //   : localStorage.getItem("left-menu-extd") === "true";
-
   return (
     <LeftMenu
       enabled={props.leftMenuEnabled}
