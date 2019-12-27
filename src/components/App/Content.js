@@ -4,31 +4,6 @@ import LeftMenuContext from "../../contexts/left-menu";
 import LeftMenu from "../Navigation/LeftMenu";
 import Routes from "./Routes";
 
-function LeftMenuContainer(props) {
-  if (props.isMobile) {
-    return (
-      <React.Fragment>
-        <div>{props.leftMenu}</div>
-        <div>{props.children}</div>
-      </React.Fragment>
-    );
-  } else {
-    return (
-      <SplitPane
-        split="vertical"
-        minSize={200}
-        defaultSize={parseInt(props.leftMenuWidth)}
-        onChange={size => {
-          localStorage.setItem("left-menu-width", size)
-        }}
-      >
-        {props.leftMenu}
-        {props.children}
-      </SplitPane>
-    );
-  }
-}
-
 function LeftMenuRender(props) {
   return (
     <LeftMenu
