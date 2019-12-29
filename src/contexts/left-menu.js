@@ -3,7 +3,7 @@ import React from 'react';
 export default React.createContext({
   leftMenuEnabled: false,
   leftMenuExtended: true,
-  // enableLeftMenu: (enabled) => { },
+  enableLeftMenu: (enabled) => { },
   toggleLeftMenu: () => { },
   setMobile: () => { }
 });
