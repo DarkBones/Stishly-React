@@ -36,7 +36,7 @@ class Accounts extends Component {
       })
       .catch(error => {
         // TODO: Handle error
-        console.log(error);
+        console.log("error: ", error);
       })
   }
 
